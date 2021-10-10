@@ -28,4 +28,15 @@ end
 
 make_sentence(words2)
 
+integers = [1, 2, 3, 4, 5]
 
+def making_array(integers)
+  new_array = []
+  integers.each.with_index do |i, idx| 
+  new_array << i if idx%2 == 0
+  end
+  
+  p new_array
+end
+
+making_array(integers)
