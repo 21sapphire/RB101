@@ -1,42 +1,49 @@
-def prompt(message)
-  Kernel.puts("=> #{message}")
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
+
+LANGUAGE = 'en'
+
+def messages(message, lang='en')
+  MESSAGES[lang][message]
 end
 
 def valid_number?(num)
   num.to_i().to_s() == num # better way to evaluate if it's a number
 end
 
-prompt(" Welcome to Calculator!")
+def prompt(message)
+  Kernel.puts("=> #{message}")
+end
+
+prompt(messages('welcome', LANGUAGE))
 
 loop do # main loop
   number1 = ''
   loop do
-    prompt("What's the first number?")
+    prompt(messages('first_number', LANGUAGE))
     number1 = Kernel.gets().chomp()
 
     if valid_number?(number1)
       break
     else
-      prompt("Hmm...that doesn't look like a valid number
-      ")
+      prompt(messages('error', LANGUAGE))
     end
   end
 
   number2 = ''
 
   loop do
-    prompt("What's the second number?")
+    prompt(messages('second_number', LANGUAGE))
     number2 = Kernel.gets().chomp()
 
     if valid_number?(number2)
       break
     else
-      prompt("Hmm...that doesn't look like a valid number")
+      prompt(messages('error', LANGUAGE))
     end
   end
 
-  prompt("What operation would you like to perform? 1) add 2) subtract
-  3) multiply 4) divide")
+  prompt(messages('operation', LANGUAGE))
   operator = Kernel.gets().chomp()
 
   result = case operator
@@ -52,7 +59,7 @@ loop do # main loop
 
   prompt("The result is #{result}")
 
-  prompt("Do you want to perform another calculation? (Y to calculate again)")
+  prompt(messages('again', LANGUAGE))
   answer = Kernel.gets().chomp()
   break unless answer.downcase().start_with?('y')
 end
