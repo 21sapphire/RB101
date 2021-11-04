@@ -167,3 +167,8 @@ my_string, my_array = not_so_tricky_method(my_string, my_array)
 puts "My string looks like this now: #{my_string}"
 puts "My array looks like this now: #{my_array}"
 
+#6
+
+def color_valid(color)
+  color == "blue" || color == "green"
+end
